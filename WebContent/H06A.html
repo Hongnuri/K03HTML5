@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>a 태그</h2>
+	<!-- 
+	a태그를 통해 링크를 걸 때 , target 속성은 _self 가 디폴트이므로 
+	기술하지 않아도 된다.
+	-->
+	<a href=H04DlDtDd.html>DL예제로 이동하기</a>
+	<br />
+	<!-- 
+	새 창(새 탭) 에서 링크 된 페이지가 열리게 된다. 
+	-->
+	<a href="http://naver.com" target="_blank">네이버로 이동하기</a>
+	
+	
+	<h2>네이버 상품 바로보기</h2>
+	<a href="https://search.shopping.naver.com/search/category?catId=50000441"target="_blank">	
+	네이버 상품 바로보기
+	</a>
+	
+	<h2>상대경로와 절대경로 알아보기</h2>
+	
+	<h3>상대경로로 링크 걸기</h3>
+	<ul>
+		<li><a href="./SubFolder1/SubFile1.html">
+			서브파일1 바로가기</a></li>
+		<li><a href="./SubFolder1/SubFolder2/SubFile2.html">
+			서브파일2 바로가기</a></li>
+	</ul>
+	
+	<h3>절대경로로 링크 걸기</h3>
+		<li><a href="/K03HTML5/SubFolder1/SubFile1.html">
+			서브파일1 바로가기</a></li>
+		<li><a href="/K03HTML5/SubFolder1/SubFolder2/SubFile2.html">
+			서브파일2 바로가기</a></li>
+</body>
+</html>
