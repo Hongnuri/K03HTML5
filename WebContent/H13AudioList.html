@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H13AudioList.html</title>
+  <script type="text/javascript">
+  var divMsg;
+  var audio;
+  var select;
+  var index=0; // 최초 플레이 되는 곡의 인덱스 설정
+
+  window.onload = function(){
+    divMsg = document.getElementById("msg");
+    audio = document.getElementById("audio");
+    select = document.getElementById("select");
+
+    // audio 에서 한 곡의 연주가 끝났을 때 , 발생되는 이벤트
+    audio.onended = function(e){
+      index++; // 다음 곡 재생을 위해 인덱스 증가
+      index %= select.length; // select 의 크기를 통해 index 값 재설정
+      myPlay(index); // 곡 재생
+    }
+  }
+  // select 에서 사용자가 선택한 곡 재생하기
+  function changePlay()
+  {
+    // 선택한 곡의 index 를 가져와서 즉시 재생
+    myPlay(select.selectedIndex);
+    // 선택한 곡으로 index 재설정
+    index = select.selectedIndex;
+  }
+  // 재생과 다음 곡 재생을 위한 컨트롤 함수
+  function control(e)
+  {
+    /*
+      버튼을 클릭했을 때의 이벤트를 event 객체를 통해 매개변수로 전달할 수 있고
+      이를 통해 해당 DOM 의 id 속성에 접근할 수 있다.
+    */
+    if(e.target.id == "play"){
+      console.log("플레이 버튼");
+      myPlay(index);
+    }
+    else if(e.target.id == "next"){
+      console.log("넥스트 버튼");
+      index++;
+      index %= select.length;
+      myPlay(index);
+      select.selectedIndex = index;
+    }
+  }
+  // 선택 된 곡 재생
+  function myPlay(idx)
+  {
+    // select 의 index 를 통해 option 의 value 를 가져와서 audio 경로를 설정
+    audio.src = select.options[idx].value;
+    // 해당 음원을 재생
+    audio.play();
+    // select 의 text 값을 가져와서 재생되는 음원정보를 출력 
+    divMsg.innerHTML = select.options[idx].text + "을 재생합니다." 
+  }
+  </script>
+</head>
+<body>
+    <h2>오디오 리스트 연속재생</h2>
+	<hr />
+	<p>
+		처음 play버튼을 누르면 리스트에 있는 곡이 연속하여 자동재생 됩니다. 마우스로 다른 곡을 선택하면 곡이 바뀝니다. next버튼을 누르면 다음 곡으로 넘어갑니다.
+	</p>
+	<hr />
+	<audio id="audio" controls>
+		<p>브라우져가 audio태그를 지원하지 않습니다.</p>
+	</audio>	
+	<br />
+	<select id="select" size="5" onchange="changePlay();">
+		<option value="./media/I_Remember_You.mp3">I Remember You[SkidRow]</option>
+		<option value="./media/Kissing_A-Fool.mp3">Kissing A Fool[George Michael]</option>
+		<option value="./media/When_I_First-Kissed_You.mp3">When I First Kissed You[Extreme]</option>
+	</select>
+	<button type="button" id="play" onclick="control(event);">Play</button>
+	<button type="button" id="next" onclick="control(event);">Next</button>
+	<br/>
+	<div id="msg">현재 연주되는 곡명이 보입니다.</div>
+</body>
+</html>

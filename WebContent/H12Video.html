@@ -20,7 +20,8 @@
 		source 하위태그 : 웹브라우저가 모든 동영상 포맷을 지원하지 못하기 때문에 
 		여러 항목 중 , 해당 브라우저가 지원하는 포맷의 파일을 찾아 플레이 할 수 있도록 한다.
 		즉 , 미디어 파일을 여러 개 설정할 때 , 사용하는 태그이다. 
-	-->
+  
+  
 	<h2>video 의 하위태그 source</h2>
 	<video autoplay controls width="300" height="200">
 	
@@ -30,7 +31,61 @@
 		해당 브라우저가 video 태그를 지원하지 않는 경우
 		<a href="media/video.mp4> 여기 </a> 를 클릭하세요.
 	</video>
-	
-	<h2>Javascript 를 이용한 커스텀 비디오 만들기</h2>
+  -->
+  <h2>Javascript 를 이용한 커스텀 비디오 만들기</h2>
+  <script>
+    // video 의 DOM 을 저장 할 전역변수
+    var video;
+    // HTML 문서의 로드가 끝난 이 후 실행 될 무기명 함수
+    window.onload = function(){
+      var currentSpan = document.getElementById("currenttime");
+      var totalSpan = document.getElementById("totaltime");
+      video = document.getElementById("video");
+      /*
+        video 에 timeupdate 이벤트를 등록해준다. 
+        총재생시간과 실시간 재생시간을 얻을 수 있다.
+        재생이 될 때 , 지속적으로 이벤트가 발생 된다.
+      */
+      video.addEventListener("timeupdate" , function() {
+        // 현재 재생시간 출력
+        currentSpan.innerHTML = video.currentTime;
+        // 전체 재생시간 출력
+        totalSpan.innerHTML = video.duration;
+      });
+    }
+    function play() {
+      // 비디오 화면 보임처리
+      video.hidden ="";
+      // 재생 시작
+      video.play();
+    }
+    function stop(){
+      // 화면 숨김처리
+      video.hidden = true;
+      // 일시정지
+      video.pause();
+    }
+    function start() {
+      // 처음부터 다시 재생하기 위해 0으로 만들어준다.
+      video.currentTime =0;
+      video.play();
+    }
+  </script>
+  <!--
+    video 태그를 통해 영상을 출력한다. 
+    hidden 속성에 의해 첫 로딩시에는 화면이 보이지 않는다.
+  -->
+  <div>
+    <video id="video" width="300" height="200"
+      src="./media/video.mp4" hidden></video>
+  </div>
+  <input type="button" value="재생하기" onclick="play();" />
+  <input type="button" value="일시정지" onclick="stop();" />   
+  <input type="button" value="처음부터 재생하기" onclick="start()" />
+  <br/>
+  <!--
+    현재 재생시간 및 전체 재생시간이 출력 되는 부분
+  -->
+  <span id="currenttime"></span> / <span id="totaltime"></span> 
 </body>
 </html>

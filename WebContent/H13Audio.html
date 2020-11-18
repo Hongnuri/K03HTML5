@@ -13,6 +13,39 @@
 	다운로드 받으세요.
 	</audio>
 	
-	<h2>Javascript 를 이용한 커스텀 오디오 만들기</h2>
+  <h2>Javascript 를 이용한 커스텀 오디오 만들기</h2>
+  <script>
+    var audio = new Audio("./media/audio.mp3");
+    window.onload = function(){
+      var currentSpan = document.getElementById("current_time");
+      var totalSpan = document.getElementById("total_time");
+      var progress = document.getElementById("progress");
+
+      audio.addEventListener("timeupdate" , function () {
+        totalSpan.innerHtml = audio.duration;
+        currentSpan.innerHTML = audio.currentTime;
+        // progress 태그에 오디오의 전체 재생시간을 설정한다.
+        progress.max = audio.duration;
+        // 현재 재생시간을 설정한다.
+        progress.value = audio.currentTime;
+      });
+    }
+    function play(){
+      audio.play();
+    }
+    function stop(){
+      audio.pause();
+    }
+  </script>
+  <div>
+    <progress value ="0" id="progress"></progress>
+  </div>
+  <div>
+    <input type="button" value="PLAY" onclick="play()" />
+    <input type="button" value="STOP" onclick="stop()" /><br/>
+    <span id="current_time"></span>
+    /
+    <sapn id="total_time"></sapn>
+  </div>
 </body>
 </html>
